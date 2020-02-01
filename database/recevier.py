@@ -47,7 +47,7 @@ try:
     cur.execute(sql)
     rows=cur.fetchall()
     for b in rows:
-        forṭ t in b:
+        for t in b:
                 list1.append(t)
     print(list1)
 finally:
