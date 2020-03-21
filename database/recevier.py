@@ -40,19 +40,23 @@ finally:
 import pymysql
 myconn = pymysql.connect(host='localhost',user='root',password='password',db='attendance')
 print("connection done")
-sql="Select name from student "
 list1=[]
-try:
-    cur=myconn.cursor()
-    cur.execute(sql)
-    rows=cur.fetchall()
-    for b in rows:
-        for t in b:
-                list1.append(t)
-    print(list1)
-finally:
-    myconn.close()
+def recv(table_name) :
+    sql="Select name from "+table_name
+
+    try:
+        cur=myconn.cursor()
+
+        cur.execute("SELECT * FROM attendance."+table_name+";")
+        rows=cur.fetchall()
+
+        for i in rows :
+            list1.append(list(i))
+            #print(i)
+        print(list1)
+    finally:
+        myconn.close()
 
 
-#code for updatetion
+
 
