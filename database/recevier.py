@@ -38,10 +38,13 @@ finally:
 """
 
 import pymysql
-myconn = pymysql.connect(host='localhost',user='root',password='password',db='attendance')
-print("connection done")
-list1=[]
+'''myconn = pymysql.connect(host='localhost',user='root',password='password',db='attendance')
+print("connection done")'''
+list1 = []
 def recv(table_name) :
+    myconn = pymysql.connect(host='localhost', user='root', password='password', db='attendance')
+    print("connection done")
+
     sql="Select name from "+table_name
 
     try:
@@ -53,9 +56,13 @@ def recv(table_name) :
         for i in rows :
             list1.append(list(i))
             #print(i)
-        print(list1)
+        #print(list1)
+    except:
+        pass
     finally:
         myconn.close()
+
+
 
 
 

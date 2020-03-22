@@ -5,9 +5,8 @@
 # Created by: PyQt5 UI code generator 5.10.1
 #
 # WARNING! All changes made in this file will be lost!
-#import subject
-#from subject import *
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 from database import sender
 from database import recevier
 import subject
@@ -26,7 +25,7 @@ class Ui_table(object):
        self.tableWidget.hide()
        self.save.hide()
        self.back.hide()
-       subject.Ui_sub.setupUi1(self)'''
+       subject.Ui_sub.setupUi1(self)
 
     def total(self):
         for k in range(1):
@@ -37,12 +36,15 @@ class Ui_table(object):
                     pass
                 else:
                     c+=1
-            print(c)
+            #print(c)
             per=(c/30)*100
-            print("per= ",per)
+            #print("per= ",per)
 
-        data.clear()
+        data.clear()'''
+
     def get(self):
+        a = self.tableName1[0] + "_" + self.tableName1[1]
+        recevier.recv(a)
         for i in range(74):
             for k in range(33):
                  value=recevier.list1[i][k]
@@ -52,11 +54,11 @@ class Ui_table(object):
     def total(self):
         a = self.tableName1[0] + "_" + self.tableName1[1]
 
-        #sender.drop(a)
+        sender.drop(a)
         #print(len(self.tableName1))
         #print(self.tableName1[0] + "_" + self.tableName1[1])
 
-
+        #print("a: ",a)
         sender.create(a)
         for k in range(74):
             i=data[k]
@@ -81,8 +83,17 @@ class Ui_table(object):
 
 
         data.clear()
+        self.showMsg()
+    def showMsg(self):
+        info = QMessageBox()
+        info.setWindowTitle("MESSAGE")
+        info.setText("DATA SUCCESSFULLY SAVED")
+        x = info.exec_()
+
+
 
     def function(self):
+        #print("at top of function")
         model = self.tableWidget.model()
 
         for row in range(model.rowCount()):
@@ -92,6 +103,7 @@ class Ui_table(object):
         # We suppose data are strings
                 data[row].append(str(model.data(index)))
         #print(data)
+        #print("i m in function")
         self.total()
 
 
@@ -203,9 +215,15 @@ class Ui_table(object):
         for k in range(74):
             self.tableWidget.setItem(k, 0, QtWidgets.QTableWidgetItem(str(all_names[k][0])))
             self.tableWidget.setItem(k, 32, QtWidgets.QTableWidgetItem(str("NIL")))
-        #self.get()
+
+        self.get()
 
     def close_scr(self,table):
+        self.tableName1.clear()
+        #subject.tableName.clear()
+        tableName = ["subject", "month"]
+        recevier.list1.clear()
+        #print("clearing list ",subject.tableName)
         table.hide()
     def retranslateUi(self, table):
         _translate = QtCore.QCoreApplication.translate

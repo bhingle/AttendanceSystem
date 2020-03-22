@@ -8,7 +8,8 @@
 #from newSem import Ui_Sem
 from final_table import  *
 from PyQt5 import QtCore, QtGui, QtWidgets
-tableName=[]
+tableName=["subject" , "month"]
+print()
 
 class Ui_sub(object):
     '''def openWindow(self):
@@ -20,38 +21,43 @@ class Ui_sub(object):
         sub.hide()
         self.window.show()'''
     def AOA1(self):
-        tableName.append("AOA")
+        #tableName[0]="AOA"
         self.sub_selected.setText("AOA")
     def JAN1(self):
-        tableName.append("JAN")
+        #tableName[1]="JAN"
         self.month_selected.setText("JAN")
 
     def CG1(self):
-        tableName.append("CG")
+        #tableName[0]="CG"
         self.sub_selected.setText("CG")
     def FEB1(self):
-        tableName.append("FEB")
+        #tableName[1]="FEB"
         self.month_selected.setText("FEB")
 
     def COA1(self):
-        tableName.append("COA")
+        #tableName[0]="COA"
         self.sub_selected.setText("COA")
     def MAR1(self):
-        tableName.append("MAR")
+        #tableName[1]="MAR"
         self.month_selected.setText("MAR")
 
     def OS1(self):
-        tableName.append("OS")
+        #tableName[0]="OS"
         self.sub_selected.setText("OS")
+
+    def OSTL1(self):
+        #tableName[0]="OS"
+        self.sub_selected.setText("OSTL")
+
     def APR1(self):
-        tableName.append("APR")
+        #tableName[1]="APR"
         self.month_selected.setText("APR")
 
     def MATH1(self):
-        tableName.append("MATH4")
+        #tableName[0]="MATH4"
         self.sub_selected.setText("MATH4")
     def MAY1(self):
-        tableName.append("MAY")
+        #tableName[1]="MAY"
         self.month_selected.setText("MAY")
 
     def setupUi(self,sub):
@@ -88,6 +94,12 @@ class Ui_sub(object):
         self.OS.setObjectName("OS")
 
         self.OS.clicked.connect(self.OS1)
+
+        self.OSTL = QtWidgets.QPushButton(self.centralwidget)
+        self.OSTL.setGeometry(QtCore.QRect(350, 390, 89, 25))
+        self.OSTL.setObjectName("OSTL")
+
+        self.OSTL.clicked.connect(self.OSTL1)
 
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(350, 70, 300, 30))
@@ -128,7 +140,7 @@ class Ui_sub(object):
         self.MAY.clicked.connect(self.MAY1)
 
         self.next = QtWidgets.QPushButton(self.centralwidget)
-        self.next.setGeometry(QtCore.QRect(800, 400, 89, 25))
+        self.next.setGeometry(QtCore.QRect(650, 600, 89, 25))
         self.next.setObjectName("next")
         sub.setCentralWidget(self.centralwidget)
         self.next.clicked.connect(self.table_scr)
@@ -136,14 +148,15 @@ class Ui_sub(object):
 
 
         self.sub_selected = QtWidgets.QTextEdit(self.centralwidget)
-        self.sub_selected.setGeometry(QtCore.QRect(330, 390, 104, 70))
+        self.sub_selected.setAlignment(QtCore.Qt.AlignCenter)
+        self.sub_selected.setGeometry(QtCore.QRect(350, 440, 104, 70))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.sub_selected.setFont(font)
         self.sub_selected.setObjectName("sub_selected")
 
         self.month_selected = QtWidgets.QTextEdit(self.centralwidget)
-        self.month_selected.setGeometry(QtCore.QRect(650, 390, 104, 70))
+        self.month_selected.setGeometry(QtCore.QRect(650, 440, 104, 70))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.month_selected.setFont(font)
@@ -173,6 +186,11 @@ class Ui_sub(object):
     def close_scr(self,sub):
         sub.hide()
     def table_scr(self):
+        #tableName.clear()
+        tableName=[self.sub_selected.toPlainText(),self.month_selected.toPlainText()]
+        print(tableName)
+
+
         self.table = QtWidgets.QMainWindow()
         self.ui = Ui_table(tableName)
         self.ui.setupUi(self.table)
@@ -187,6 +205,7 @@ class Ui_sub(object):
         self.MATH_4.setText(_translate("sub", "MATH_4"))
         self.label.setText(_translate("sub", "SELECT SUBJECT"))
         self.OS.setText(_translate("sub", "OS"))
+        self.OSTL.setText(_translate("sub", "OSTL"))
 
         self.label1.setText(_translate("sub", "SELECT MONTH"))
         self.JAN.setText(_translate("sub", "JAN"))
