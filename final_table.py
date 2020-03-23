@@ -10,14 +10,16 @@ from PyQt5.QtWidgets import QMessageBox
 from database import sender
 from database import recevier
 import subject
-
+from wp import *
 all_names=[['ANSARI SALMAN SARVAR'], ['BAGAYATKAR ANIKET SURAJ'], ['BHINGLE ABHISHEK B'], ['CHAWARA RUTUJA SURESH'], ['CHODANKAR AJAY ARVIND'], ['CHORMARE RAHUL JALINDAR'], ['CHOWKEKAR SAHIL'], ['DABHOLKAR SIDDHI NARESH'], ['DESAI PARTH JAYESH'], ['DESHMUKH PRANJALI KIRAN'], ['FEGADE VIRESH SHASHIKANT'], ['GIRKAR KSHITIJ BHARAT'], ['GORASIYA TANUSHREE JIVRAJ'], ['GORE ANUSHKA NARENDRA'], ['GOSAVI HITESH'], ['HOUZWALA LOUKIK JITENDRA'], ['INGALE DIMPLE NITIN'], ['JADHAV HEMANGI'], ['JADHAV PARIKSHIT'], ['JAMGE VIKAS AMRUT'], ['KESARKAR MANAV ASHOK'], ['KOKANE VED NANDADEEP'], ['KONDEKAR PARTH GURUDAS'], ['KORE MRUNMAI SHEKHAR'], ['KOYTEKAR ISHIKA K'], ['KULKARNI PRANAV B'], ['LATE AMEYA MANGESH'], ['MALVI BHUMIT PRAVIN'], ['MANE PRANJAL'], ['MEHTA MEET MANOJ'], ['MENON GOPIKHA UMESH'], ['MHATRE BHAKTI PRAKASH'], ['MHATRE MANASVI'], ['MHATRE SAKSHI MANISH'], ['MITTAL HARSH RAJKUMAR'], ['MORE VINIT VIPIN'], ['PALEKAR DIVYA RAJ'], ['PANCHAL NEEL JIGNESH'], ['PANDEY ADITYA RATNESH'], ['PANDEY PIYUSH KRIPA S'], ['PANDEY RACHNA RATNESH'], ['PANJA PROMITA PRABIR'], ['PARIKH SAUMYA AJAY'], ['PATIL AARATI'], ['PATIL SHUBHAM'], ['PATIL SNEHAL'], ['PATIL VEDANT DEVENDRA'], ['POOJARI RAHUL K'], ['RAI VAIBHAV RAJENDRA P'], ['RAMANE PRATHAMESH P'], ['RAORANE VINITA PRAVIN'], ['RATHOD ANIKET YOGESH'], ['RAUL YASH CHAKOR'], ['SAH NEHA RANJEET'], ['SALUNKE NIWANT SHARAD'], ['SANAP KALYANI'], ['SAVE PUSHKAR NILESH'], ['SAWANT PRANJALI VILAS'], ['SENTA DARSHAN P'], ['SHEDGE SHRUTI'], ['SHETTY SONIT HARISH'], ['SHINDE MAYUR POPAT'], ['SHINKAR RUTUJA MANOJ'], ['SHIVADE YASH R'], ['SONAWANE SWARAJ S'], ['SUHAGIYA SANKET R'], ['THAKARE SANDESH MOHAN'], ['THAKUR MIHIR ASHISH'], ['TIWARI ANAND SANTOSH'], ['VANMALI DAIDEEPYA'], ['VARTHA SIDDHARTH SANJAY'], ['VASAIKAR SIDDHANT SUNIL'], ['VEDPATHAK RITHWIK SANJIV'], ['WALINJKAR ABHISHEK A']]
 
 data = []
 
 
+
 class Ui_table(object):
     tableName1 = []
+
     def __init__(self,msg):
         self.tableName1 = msg
     '''def closeWindow(self):
@@ -49,7 +51,47 @@ class Ui_table(object):
             for k in range(33):
                  value=recevier.list1[i][k]
                  self.tableWidget.setItem(i, k, QtWidgets.QTableWidgetItem(str(value)))
+    def total1(self):
+        a = self.tableName1[0] + "_" + self.tableName1[1]
 
+        sender.drop(a)
+        #print(len(self.tableName1))
+        #print(self.tableName1[0] + "_" + self.tableName1[1])
+
+        #print("a: ",a)
+        sender.create(a)
+        for k in range(74):
+            i=data[k]
+            #print(data)
+            #print("none= ",i.count('None'))
+            if i.count('None')+i.count('')==31:
+                self.tableWidget.setItem(k, 32, QtWidgets.QTableWidgetItem(str(0.00)))
+
+                i[32]=0.0
+                sender.insert1(i,a)
+            else:
+                one=i.count('1')
+                zero=i.count('0')
+                tot=one+zero
+                #print(c)
+                per=round((one/tot)*100,2)
+                self.tableWidget.setItem(k,32,QtWidgets.QTableWidgetItem(str(per)))
+                i[32]=per
+                sender.insert1(i,a)
+
+            #print("per= ",per)
+        l=[]
+        l1 = [data[2][0], str(data[2][32]), str(+919819191672),self.tableName1]
+        l2 = [data[4][0], str(data[4][32]), str(+917738110960),self.tableName1]
+        l3 = [data[10][0], str(data[10][32]), str(+918291105704),self.tableName1]
+        l.append(l1)
+        l.append(l2)
+        l.append(l3)
+
+        for i in range(3):
+            sending_msg(l[i])
+        data.clear()
+        self.showMsg()
 
     def total(self):
         a = self.tableName1[0] + "_" + self.tableName1[1]
@@ -81,7 +123,6 @@ class Ui_table(object):
 
             #print("per= ",per)
 
-
         data.clear()
         self.showMsg()
     def showMsg(self):
@@ -106,7 +147,19 @@ class Ui_table(object):
         #print("i m in function")
         self.total()
 
+    def function1(self):
+        #print("at top of function")
+        model = self.tableWidget.model()
 
+        for row in range(model.rowCount()):
+            data.append([])
+            for column in range(model.columnCount()):
+                index = model.index(row, column)
+        # We suppose data are strings
+                data[row].append(str(model.data(index)))
+        #print(data)
+        #print("i m in function")
+        self.total1()
 
 
     def setupUi(self, table):
@@ -127,6 +180,11 @@ class Ui_table(object):
         item = QtWidgets.QTableWidgetItem()
 
         #self.tableWidget.setColumnWidth(0, 100)
+        header = self.tableWidget.horizontalHeader()
+        #header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        for i in range(33):
+            header.setSectionResizeMode(i, QtWidgets.QHeaderView.ResizeToContents)
+        #header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
         self.tableWidget.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(3, item)
@@ -194,6 +252,11 @@ class Ui_table(object):
         self.save.setObjectName("save")
         self.save.clicked.connect(self.function)
 
+        self.send = QtWidgets.QPushButton(self.centralwidget)
+        self.send.setGeometry(QtCore.QRect(900, 665, 89, 25))
+        self.send.setObjectName("send")
+        self.send.clicked.connect(self.alert)
+
 
         self.back = QtWidgets.QPushButton(self.centralwidget)
         self.back.setGeometry(QtCore.QRect(800, 665, 89, 25))
@@ -217,6 +280,9 @@ class Ui_table(object):
             self.tableWidget.setItem(k, 32, QtWidgets.QTableWidgetItem(str("NIL")))
 
         self.get()
+
+    def alert(self):
+        self.function1()
 
     def close_scr(self,table):
         self.tableName1.clear()
@@ -294,6 +360,7 @@ class Ui_table(object):
         item.setText(_translate("table", "TOTAL %"))
         self.save.setText(_translate("table", "SAVE"))
         self.back.setText(_translate("table", "BACK"))
+        self.send.setText(_translate("table", "SEND ALERTS"))
 
 
 '''if __name__ == "__main__":

@@ -17,14 +17,15 @@ from twilio.rest import Client
 
 # Your Account Sid and Auth Token from twilio.com/console
 # DANGER! This is insecure. See http://twil.io/secure
-account_sid = 'AC33d091e217ab0caf0659e1339dd8ab9b'
-auth_token = 'fab17024d6361bab4f9080fccccf477d'
-client = Client(account_sid, auth_token)
-
-message = client.messages.create(
-                              from_='whatsapp:+14155238886',
-                              body='Hello, there!',
-                              to='whatsapp:+919819191672'
-                          )
-
-print(message.sid)
+def sending_msg(l):
+    account_sid = 'AC33d091e217ab0caf0659e1339dd8ab9b'
+    auth_token = '265b9ad2f451cef592b7a610df1f9698'
+    client = Client(account_sid, auth_token)
+    msg = "Hello,"+"\n"+l[0]+"\n"+"Your attendance of subject -> *"+l[3][0]+"* and month -> *"+l[3][1]+"* is : *"+l[1]+"*%"
+    message = client.messages.create(
+                                  from_='whatsapp:+14155238886',
+                                  body=msg,
+                                  to='whatsapp:'+l[2]
+                              )
+    print(message.sid)
+    print("msg sent")
