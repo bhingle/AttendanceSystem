@@ -1,7 +1,6 @@
 ''' import pyodbc
 con = pyodbc.connect("DRIVER={ODBC Driver 17 for SQL Server};server=localhost;database=record;uid=root;pwd=Bhingle@123")
 cur = con.excute()
-cur.execute("SELECT * FROM student WHERE quantity < 3")
 for row in cur:
     print(row.roll_no + row.name + row.total)
 cur.close()

@@ -1,11 +1,4 @@
-# -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'first.ui'
-#
-
-# Created by: PyQt5 UI code generator 5.10.1
-#
-# WARNING! All changes made in this file will be lost!
 from newSem import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -36,23 +29,28 @@ class Ui_first_pg(object):
         self.centralwidget = QtWidgets.QWidget(first_pg)
         self.centralwidget.setObjectName("centralwidget")
         self.SE = QtWidgets.QPushButton(self.centralwidget)
-        self.SE.setGeometry(QtCore.QRect(600, 170, 91, 31))
+        self.SE.setGeometry(QtCore.QRect(600, 260, 150, 50))
         self.SE.setObjectName("SE")
+        self.SE.setFont(QtGui.QFont("Ubuntu", 20))
 
         self.SE.clicked.connect(self.sem_scr)
 
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(600, 40, 201, 31))
+        self.label.setGeometry(QtCore.QRect(530, 100, 400, 50))
         self.label.setObjectName("label")
+        self.label.setFont(QtGui.QFont("Ubuntu", 30))
         self.FE = QtWidgets.QPushButton(self.centralwidget)
-        self.FE.setGeometry(QtCore.QRect(600, 110, 89, 31))
+        self.FE.setGeometry(QtCore.QRect(600, 180, 150, 50))
         self.FE.setObjectName("FE")
+        self.FE.setFont(QtGui.QFont("Ubuntu", 20))
         self.TE = QtWidgets.QPushButton(self.centralwidget)
-        self.TE.setGeometry(QtCore.QRect(600, 230, 89, 31))
+        self.TE.setGeometry(QtCore.QRect(600, 340, 150, 50))
         self.TE.setObjectName("TE")
+        self.TE.setFont(QtGui.QFont("Ubuntu", 20))
         self.BE = QtWidgets.QPushButton(self.centralwidget)
-        self.BE.setGeometry(QtCore.QRect(600, 290, 89, 31))
+        self.BE.setGeometry(QtCore.QRect(600, 420, 150, 50))
         self.BE.setObjectName("BE")
+        self.BE.setFont(QtGui.QFont("Ubuntu", 20))
         first_pg.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(first_pg)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))

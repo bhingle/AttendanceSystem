@@ -1,10 +1,4 @@
-# -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'checkbox3.ui'
-#
-# Created by: PyQt5 UI code generator 5.10.1
-#
-# WARNING! All changes made in this file will be lost!
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
 from database import sender
@@ -87,11 +81,19 @@ class Ui_table(object):
         l.append(l1)
         l.append(l2)
         l.append(l3)
-
         for i in range(3):
             sending_msg(l[i])
+
+        defaulter = []
+        for i in range(74):
+            if data[i][32] < 75:
+                d = [str(i + 1), data[i][0], str(data[i][32])]
+                defaulter.append(d)
+        sending_msg1(defaulter,self.tableName1)
+        #print(defaulter)
+
         data.clear()
-        self.showMsg()
+        self.showMsg1()
 
     def total(self):
         a = self.tableName1[0] + "_" + self.tableName1[1]
@@ -130,7 +132,11 @@ class Ui_table(object):
         info.setWindowTitle("MESSAGE")
         info.setText("DATA SUCCESSFULLY SAVED")
         x = info.exec_()
-
+    def showMsg1(self):
+        info = QMessageBox()
+        info.setWindowTitle(" ")
+        info.setText("MESSAGE SENT")
+        x = info.exec_()
 
 
     def function(self):
@@ -253,13 +259,13 @@ class Ui_table(object):
         self.save.clicked.connect(self.function)
 
         self.send = QtWidgets.QPushButton(self.centralwidget)
-        self.send.setGeometry(QtCore.QRect(900, 665, 89, 25))
+        self.send.setGeometry(QtCore.QRect(900, 665, 100, 25))
         self.send.setObjectName("send")
         self.send.clicked.connect(self.alert)
 
 
         self.back = QtWidgets.QPushButton(self.centralwidget)
-        self.back.setGeometry(QtCore.QRect(800, 665, 89, 25))
+        self.back.setGeometry(QtCore.QRect(300, 665, 89, 25))
         self.back.setObjectName("back")
         self.back.clicked.connect(lambda :self.close_scr(table))
 

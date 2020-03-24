@@ -1,3 +1,4 @@
+
 import pymysql
 myconn = pymysql.connect(host='localhost',user='root',password='password',db='attendance')
 print("connection done")
